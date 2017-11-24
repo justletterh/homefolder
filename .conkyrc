@@ -1,0 +1,100 @@
+conky.config = {
+  use_xft = true,
+  font = 'Ubuntu:size=8',
+  xftalpha = 1,
+  update_interval = 1,
+  total_run_times = 0,
+  own_window = true,
+  own_window_transparent = true,
+  own_window_argb_visual = true,
+  own_window_type = 'normal',
+  own_window_class = 'conky',
+  own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+  background = true,
+  double_buffer = true,
+--maximum_size 300 200
+  draw_shades = true,
+  draw_outline = true,
+  draw_borders = false	,
+  draw_graph_borders = true,
+  default_shade_color = 'black',
+  default_outline_color = 'black',
+  default_bar_width = 150, default_bar_height = 10,
+  default_gauge_width = 20, default_gauge_height = 20,
+--imlib_cache_size 0
+  draw_shades = true,
+  alignment = 'top_right',
+  gap_x = 5,
+  gap_y = 5,
+  no_buffers = false,
+  uppercase = false,
+  cpu_avg_samples = 2,
+  override_utf8_locale = false,
+  default_color = '#DEDEDE',
+  color1 = '#7fffff',
+};
+
+conky.text = [[
+${color tan1}Info ${color slate grey}${hr 2}
+${color1}Date               ${alignr}${color}${time %a,}${color}${time %e %B %G}
+${color1}Time               ${alignr}${color}${time %H:%M:%S}
+${color1}Core Temp 1             ${alignr}${color}${exec sensors coretemp-isa-0000  | grep "Core 0" | cut -b 17-18}
+${color1}Core Temp 2             ${alignr}${color}${exec sensors coretemp-isa-0000  | grep "Core 1" | cut -b 17-18}
+${color Tan1}System ${color slate grey}${hr 2}
+${color1}Hostname           ${alignr}${color}${nodename}
+${color1}${sysname}         ${alignr}${color}${kernel}-${machine}
+${color1}CPU                ${alignr}${color}${freq_g}GHz
+${color1}Uptime             ${alignr}${color}${uptime}
+${color1}Battery State      ${alignr}${color}${exec upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | cut -b 5-10,25-38}
+${color1}Battery %          ${alignr}${color}${exec upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "percentage" | cut -b 5-15,25-29}
+
+${color Tan1}Processors ${color slate grey}${hr 2}
+${color1}Core 0      ${alignc}${color}${cpu cpu0}%${alignr}${cpugraph 10,150 cpu0}
+${color1}Core 1      ${alignc}${color}${cpu cpu1}%${alignr}${cpubar cpu1}
+${color1}Core 2      ${alignc}${color}${cpu cpu2}%${alignr}${cpubar cpu2}
+${color1}Core 3      ${alignc}${color}${cpu cpu3}%${alignr}${cpubar cpu3}
+${color1}Core 4      ${alignc}${color}${cpu cpu4}%${alignr}${cpubar cpu4}
+
+${color Tan1}Memory ${color slate grey}${hr 2}
+${color1}Used / Available / Total    ${color}${alignr}${mem} / ${memeasyfree} / ${memmax}
+${color1}Currently used:   ${color}${alignc}${memperc}%   ${alignr}${membar}
+
+${color1}Used / Available / Total    ${color}${alignr}${swap} / ${swapfree} / ${swapmax}
+${color1}Currently used:   ${color}${alignc}${swapperc}%   ${alignr}${swapbar}
+
+${color Tan1}Filesystem ${color slate grey}${hr 2}
+${color1}/${color}${alignr}${fs_used /} / ${fs_size /} ${color}${alignr}${fs_free_perc /} %
+${color}${alignc}${fs_bar 10,320 /}
+${color1}/tmp${color}${alignr}${fs_used /tmp} / ${fs_size /tmp} ${color}${alignr}${fs_free_perc /tmp} %
+${color}${alignc}${fs_bar 10,320 /tmp}
+${color1}/mnt${color}${alignr}${fs_used /mnt} / ${fs_size /mnt} ${color}${alignr}${fs_free_perc /mnt} %
+${color}${alignc}${fs_bar 10,320 /mnt}
+
+${color Tan1}Disk I/O ${color slate grey}${hr 2}
+${voffset -12.5}
+${color1}${offset 60}Read      ${alignr}${color}${diskio_read /dev/sda}${diskiograph_read /dev/sda 10,100}
+${color1}${offset 60}Write     ${alignr}${color}${diskio_write /dev/sda}${diskiograph_write /dev/sda 10,100}
+${color1}${voffset -22.5}/dev/sda
+
+${color1}${offset 60}Read      ${alignr}${color}${diskio_read /dev/sdb}${diskiograph_read /dev/sdb 10,100}
+${color1}${offset 60}Write     ${alignr}${color}${diskio_write /dev/sdb}${diskiograph_write /dev/sdb 10,100}
+${color1}${voffset -22.5}/dev/sdb
+
+${color Tan1}Networking ${color slate grey}${hr 2}
+${if_existing /proc/net/route wlo1}${color1}Private IP         ${color}${alignr}${addr wlo1}
+${color1}Public IP          ${color}${alignr}${execi 300 dig +short myip.opendns.com @resolver1.opendns.com}
+${color1}ESSID              ${color}${alignr}${wireless_essid wlo1}
+${color1}AP MAC Address     ${color}${alignr}${wireless_ap wlo1}
+${color1}Bitrate            ${color}${alignr}${wireless_bitrate wlo1}
+${color1}Signal             ${color}${alignr}${wireless_link_qual_perc wlo1} ${wireless_link_bar 10,100 wlo1}
+${color1}Download           ${alignr}${color}${downspeed wlo1}${downspeedgraph wlo1 10,100}
+${color1}Upload             ${alignr}${color}${upspeed wlo1}${upspeedgraph wlo1 10,100}
+${color1}Total Down/Up      ${alignr}${color}${totaldown wlo1}/${totalup wlo1}
+${else}${if_existing /proc/net/route enp0s25}${color1}Private IP         ${color}${alignr}${addr enp0s25}
+${color1}Public IP          ${color}${alignr}${execi 300 dig +short myip.opendns.com @resolver1.opendns.com}
+${color1}Download           ${alignr}${color}${downspeed enp0s25}${downspeedgraph enp0s25 10,100}
+${color1}Upload             ${alignr}${color}${upspeed enp0s25}${upspeedgraph enp0s25 10,100}
+${color1}Total Down/Up      ${alignr}${color}${totaldown enp0s25}/${totalup enp0s25}${endif}${endif}
+#${color1}Ping to 8.8.8.8    ${alignr}${color}${exec ~/ping.sh}
+
+]];
