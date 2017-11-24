@@ -36,7 +36,7 @@ conky.config = {
 
 conky.text = [[
 ${color tan1}Info ${color slate grey}${hr 2}
-${color1}Date               ${alignr}${color}${time %a,}${color}${time %e %B %G}
+${color1}Date               ${alignr}${color}${time %a,} ${color}${time %e %B %G}
 ${color1}Time               ${alignr}${color}${time %H:%M:%S}
 ${color1}Core Temp 1             ${alignr}${color}${exec sensors coretemp-isa-0000  | grep "Core 0" | cut -b 17-18}
 ${color1}Core Temp 2             ${alignr}${color}${exec sensors coretemp-isa-0000  | grep "Core 1" | cut -b 17-18}
@@ -55,10 +55,11 @@ ${color1}Core 2      ${alignc}${color}${cpu cpu2}%${alignr}${cpubar cpu2}
 ${color1}Core 3      ${alignc}${color}${cpu cpu3}%${alignr}${cpubar cpu3}
 ${color1}Core 4      ${alignc}${color}${cpu cpu4}%${alignr}${cpubar cpu4}
 
-${color Tan1}Memory ${color slate grey}${hr 2}
+${color Tan1}RAM ${color slate grey}${hr 2}
 ${color1}Used / Available / Total    ${color}${alignr}${mem} / ${memeasyfree} / ${memmax}
 ${color1}Currently used:   ${color}${alignc}${memperc}%   ${alignr}${membar}
 
+${color Tan1}SWAP ${color slate grey}${hr 2}
 ${color1}Used / Available / Total    ${color}${alignr}${swap} / ${swapfree} / ${swapmax}
 ${color1}Currently used:   ${color}${alignc}${swapperc}%   ${alignr}${swapbar}
 
@@ -97,4 +98,5 @@ ${color1}Upload             ${alignr}${color}${upspeed enp0s25}${upspeedgraph en
 ${color1}Total Down/Up      ${alignr}${color}${totaldown enp0s25}/${totalup enp0s25}${endif}${endif}
 #${color1}Ping to 8.8.8.8    ${alignr}${color}${exec ~/ping.sh}
 
-]];
+
+]]
