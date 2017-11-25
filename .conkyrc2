@@ -8,7 +8,7 @@ conky.config = {
   own_window_transparent = true,
   own_window_argb_visual = true,
   own_window_type = 'sticky',
-  own_window_class = 'conky2',
+  own_window_class = 'conky',
   own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
   background = true,
   double_buffer = true,
@@ -34,5 +34,5 @@ conky.config = {
 };
 
 conky.text = [[
-${execi 2 (dmesg -r | tail -n 25)}
-`]]
+${execi 1 (dmesg -r | tail -n 25)}
+]]
